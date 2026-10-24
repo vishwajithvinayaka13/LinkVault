@@ -30,7 +30,7 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-// Create a short link
+
 app.post("/api/links", async (req, res) => {
   try {
     const { originalUrl } = req.body;
@@ -60,14 +60,38 @@ app.post("/api/links", async (req, res) => {
       });
     }
 
-    const shortCode = nanoid(7);
+    // Generate a 5-character code and retry if it already exists.
+    const MAX_ATTEMPTS = 10;
+    let link;
 
-    const link = await Link.create({
-      originalUrl: parsedUrl.href,
-      shortCode,
-    });
+    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+      const shortCode = nanoid(5);
 
-    res.status(201).json({
+      try {
+        link = await Link.create({
+          originalUrl: parsedUrl.href,
+          shortCode,
+        });
+
+        break;
+      } catch (error) {
+        // Retry only when the shortCode unique index causes a collision.
+        if (error.code === 11000 && error.keyPattern?.shortCode) {
+          continue;
+        }
+
+        throw error;
+      }
+    }
+
+    if (!link) {
+      return res.status(503).json({
+        success: false,
+        message: "Could not generate a unique short code. Please try again.",
+      });
+    }
+
+    return res.status(201).json({
       success: true,
       message: "Short link created successfully!",
       link: {
@@ -81,7 +105,7 @@ app.post("/api/links", async (req, res) => {
   } catch (error) {
     console.error("Create link error:", error.message);
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Could not create the short link.",
     });
