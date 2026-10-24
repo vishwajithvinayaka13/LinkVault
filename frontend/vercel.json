@@ -1,0 +1,17 @@
+
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://linkvault-backend-lbq1.onrender.com/api/:path*"
+    },
+    {
+      "source": "/:shortCode",
+      "destination": "https://linkvault-backend-lbq1.onrender.com/:shortCode"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
