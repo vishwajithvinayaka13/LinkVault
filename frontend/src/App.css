@@ -839,3 +839,319 @@ footer {
   border-color: rgba(255, 255, 255, 0.25);
   box-shadow: none;
 }
+
+/* ===== LINKVAULT MOBILE LAYOUT FIX ===== */
+
+@media (max-width: 600px) {
+  .topbar {
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .brand {
+    font-size: 21px;
+    gap: 8px;
+    letter-spacing: -0.7px;
+  }
+
+  .status {
+    padding: 7px 9px;
+    gap: 6px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .hero {
+    padding: 48px 0 36px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 9vw, 44px);
+    letter-spacing: -1.5px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* Keep the URL input usable on narrow screens */
+  .shorten-form {
+    width: 100%;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .url-icon {
+    padding-left: 5px;
+    font-size: 20px;
+  }
+
+  .shorten-form input {
+    min-width: 0;
+    width: 0;
+    flex: 1 1 auto;
+    font-size: 12px;
+    padding: 12px 2px;
+  }
+
+  .shorten-form input::placeholder {
+    font-size: 11px;
+  }
+
+  .shorten-form button {
+    flex-shrink: 0;
+    padding: 12px 9px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .hint {
+    gap: 12px;
+    font-size: 10px;
+  }
+
+  .hint span {
+    margin-right: -9px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    margin-bottom: 42px;
+  }
+
+  .stat-card {
+    min-width: 0;
+    padding: 12px 9px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.3px;
+  }
+
+  .stat-value {
+    margin-top: 10px;
+    font-size: clamp(20px, 6vw, 29px);
+    overflow-wrap: anywhere;
+  }
+
+  .status-value {
+    font-size: 20px;
+  }
+
+  .stat-note {
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .section-heading h2 {
+    font-size: 20px;
+  }
+
+  .section-heading p {
+    line-height: 1.6;
+  }
+
+  .link-controls {
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .link-controls input,
+  .link-controls select {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  /* Arrange each saved link neatly */
+  .link-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .link-symbol {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+
+  .link-info {
+    flex: 1 1 calc(100% - 55px);
+    width: auto;
+    min-width: 0;
+    gap: 7px;
+  }
+
+  .short-url {
+    display: block;
+    max-width: 100%;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .original-url {
+    display: block;
+    max-width: 100%;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .created-date {
+    font-size: 10px;
+  }
+
+  /* Put the counter and actions on clean rows */
+  .click-count {
+    margin-left: 0;
+    min-width: 44px;
+    flex: 0 0 auto;
+  }
+
+  .click-count strong {
+    font-size: 18px;
+  }
+
+  .copy-button,
+  .delete-button,
+  .qr-button {
+    flex: 1 1 auto;
+    min-height: 38px;
+    padding: 9px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .qr-display {
+    flex: 1 1 100%;
+    min-width: 0;
+    padding: 16px 10px;
+    overflow-wrap: anywhere;
+  }
+
+  .qr-display svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  footer {
+    flex-direction: column;
+    line-height: 1.7;
+    gap: 6px;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 360px) {
+  .main {
+    width: calc(100% - 20px);
+  }
+
+  .topbar {
+    padding: 0 10px;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+
+  .brand-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 21px;
+  }
+
+  .status {
+    font-size: 9px;
+    padding: 6px 7px;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 26px;
+  }
+
+  .shorten-form button {
+    padding: 11px 7px;
+    font-size: 9px;
+  }
+
+  .url-icon {
+    font-size: 17px;
+  }
+}
+
+/* ===== LONG URL INPUT IMPROVEMENTS ===== */
+
+.shorten-form {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.shorten-form .url-icon {
+  flex-shrink: 0;
+}
+
+.shorten-form input {
+  display: block;
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  text-overflow: clip;
+  scrollbar-width: thin;
+  scrollbar-color: #7773a8 transparent;
+  caret-color: #dfff75;
+}
+
+.shorten-form input:focus {
+  outline: none;
+}
+
+.shorten-form input::placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shorten-form button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .shorten-form {
+    gap: 5px;
+    padding: 6px;
+  }
+
+  .shorten-form input {
+    font-size: 12px;
+    padding: 12px 3px;
+  }
+
+  .shorten-form button {
+    padding: 11px 8px;
+    font-size: 10px;
+  }
+}
