@@ -1155,3 +1155,40 @@ footer {
     font-size: 10px;
   }
 }
+
+/* ===== LONG URL FIX ===== */
+.link-list {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.link-card,
+.link-info {
+  min-width: 0;
+}
+
+.original-url {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ===== SERVER STATUS COLORS ===== */
+.status.checking .status-dot {
+  background: #f1c40f;
+  box-shadow: 0 0 10px #f1c40f80;
+}
+
+.status.offline .status-dot {
+  background: #ff6b81;
+  box-shadow: 0 0 10px #ff6b8180;
+}
+
+.status-value.checking {
+  color: #f1c40f;
+}
+
+.status-value.offline {
+  color: #ff8d9b;
+}

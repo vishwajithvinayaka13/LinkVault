@@ -16,6 +16,7 @@ function App() {
   const [search, setSearch] = useState("");
 const [sortBy, setSortBy] = useState("newest");
 const [filterBy, setFilterBy] = useState("all");
+const [serverStatus, setServerStatus] = useState("checking");
   async function fetchLinks() {
     try {
       const response = await fetch(`${API}/api/links`);
@@ -29,7 +30,21 @@ const [filterBy, setFilterBy] = useState("all");
     }
   }
 
-  
+  async function checkHealth() {
+  try {
+    const res = await fetch(`${API}/api/health`);
+    setServerStatus(res.ok ? "online" : "offline");
+  } catch {
+    setServerStatus("offline");
+  }
+}
+useEffect(() => {
+  checkHealth();
+
+  const id = setInterval(checkHealth, 30000);
+
+  return () => clearInterval(id);
+}, []);
 useEffect(() => {
   fetchLinks();
 
@@ -149,10 +164,14 @@ const filteredLinks = links
           <span className="brand-icon">↗</span>
           LinkVault<span className="brand-dot">.</span>
         </a>
-        <span className="status">
-          <span className="status-dot"></span>
-          Local server
-        </span>
+        <span className={`status ${serverStatus}`}>
+  <span className="status-dot"></span>
+  {serverStatus === "online"
+    ? "Server online"
+    : serverStatus === "checking"
+    ? "Connecting..."
+    : "Server offline"}
+</span>
       </header>
 
       <main className="main">
@@ -207,11 +226,22 @@ const filteredLinks = links
             <div className="stat-note">Tracked short-link visits</div>
           </div>
           <div className="stat-card">
-            <div className="stat-label">STATUS</div>
-            <div className="stat-value status-value">Active</div>
-            <div className="stat-note">Ready to shorten links</div>
-          </div>
-        </section>
+  <div className="stat-label">STATUS</div>
+
+  <div className={`stat-value status-value ${serverStatus}`}>
+    {serverStatus === "online"
+      ? "Active"
+      : serverStatus === "checking"
+      ? "Waking up"
+      : "Offline"}
+  </div>
+
+  <div className="stat-note">
+    {serverStatus === "online"
+      ? "Ready to shorten links"
+      : "Server can take up to a minute to wake"}
+  </div>
+</div>
 
         <section className="links-section">
           <div className="section-heading">
@@ -280,13 +310,14 @@ const filteredLinks = links
                       {link.shortUrl.replace("http://", "")}
                     </a>
                     <a
-                      className="original-url"
-                      href={link.originalUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {link.originalUrl}
-                    </a>
+  className="original-url"
+  href={link.originalUrl}
+  title={link.originalUrl}
+  target="_blank"
+  rel="noreferrer"
+>
+  {link.originalUrl}
+</a>
                     <span className="created-date">
                       Created{" "}
                       {new Date(link.createdAt).toLocaleDateString()}
