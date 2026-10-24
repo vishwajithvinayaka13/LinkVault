@@ -11,6 +11,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const BACKEND_URL = (
+  process.env.BACKEND_URL || `http://localhost:${PORT}`
+).replace(/\/+$/, "");
+
 app.use(cors());
 app.use(express.json());
 
@@ -69,7 +73,7 @@ app.post("/api/links", async (req, res) => {
       link: {
         originalUrl: link.originalUrl,
         shortCode: link.shortCode,
-        shortUrl: `http://localhost:${PORT}/${link.shortCode}`,
+        shortUrl: `${BACKEND_URL}/${link.shortCode}`,
         clicks: link.clicks,
         createdAt: link.createdAt,
       },
@@ -95,7 +99,7 @@ app.get("/api/links", async (req, res) => {
       links: links.map((link) => ({
         originalUrl: link.originalUrl,
         shortCode: link.shortCode,
-        shortUrl: `http://localhost:${PORT}/${link.shortCode}`,
+        shortUrl: `${BACKEND_URL}/${link.shortCode}`,
         clicks: link.clicks,
         createdAt: link.createdAt,
       })),
@@ -168,7 +172,7 @@ async function startServer() {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
 
-    console.log("Connected to local MongoDB!");
+    console.log("Connected to MongoDB!");
 
     app.listen(PORT, () => {
       console.log(`LinkVault server running at http://localhost:${PORT}`);
