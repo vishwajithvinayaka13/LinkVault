@@ -4,7 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import "./App.css";
 import DigitalRain from "./DigitalRain";
 
-const API = "http://localhost:5000";
+const API = "https://linkvault-backend-lbq1.onrender.com";
 
 function App() {
   const [url, setUrl] = useState("");
