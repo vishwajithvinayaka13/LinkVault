@@ -242,7 +242,7 @@ const filteredLinks = links
       : "Server can take up to a minute to wake"}
   </div>
 </div>
-
+</section>
         <section className="links-section">
           <div className="section-heading">
             <div>
